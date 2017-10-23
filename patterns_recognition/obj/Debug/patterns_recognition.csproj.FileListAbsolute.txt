@@ -1,0 +1,9 @@
+C:\Users\User\Desktop\Parallel programming\patterns_recognition\patterns_recognition\bin\Debug\patterns_recognition.exe.config
+C:\Users\User\Desktop\Parallel programming\patterns_recognition\patterns_recognition\bin\Debug\patterns_recognition.exe
+C:\Users\User\Desktop\Parallel programming\patterns_recognition\patterns_recognition\bin\Debug\patterns_recognition.pdb
+C:\Users\User\Desktop\Parallel programming\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.Form1.resources
+C:\Users\User\Desktop\Parallel programming\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.Properties.Resources.resources
+C:\Users\User\Desktop\Parallel programming\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.csproj.GenerateResource.Cache
+C:\Users\User\Desktop\Parallel programming\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.exe
+C:\Users\User\Desktop\Parallel programming\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.pdb
+C:\Users\User\Desktop\Parallel programming\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.csprojResolveAssemblyReference.cache
