@@ -40,41 +40,47 @@ namespace patterns_recognition
                 int[] result = new int[d + 1];
                 int[] result2 = new int[d + 1];
                 double[] normal = new double[d + 1];
+                double[] normal2 = new double[d + 1];
 
                 test(d , n, prob,result,result2);
-                draw(result, prob[0], d, n, _colors[0]);
-                //draw(result2, prob[1], d, n, _colors[1]);
+                draw(result, "prob1=" + prob[0], d, n, _colors[0]);
+                draw(result2, "prob2=" + prob[1], d, n, _colors[1]);
                 double berno1 = bernoulli(d, result, prob[0]);
                 double berno2 = bernoulli(d, result2, prob[1]);
+
                 label5.Text = "berno1 = " + berno1;
                 label6.Text = "berno2 = " + berno2;
 
-                calcGuss(d,result);
-                //drawGuss(normal, "高斯", d, n, Color.ForestGreen);
+                normal = calcGuss(d, n, result);
+                drawGuss(normal, "高斯", d, n, Color.ForestGreen);
+                normal2 = calcGuss(d, n, result2);
+                drawGuss(normal2, "高斯2", d, n, Color.Yellow);
+                label7.Text = "gaussian1 = " + normal.Sum();
+                label8.Text = "gaussian2 = " + normal2.Sum();
             }
         }
 
-        public void calcGuss(int d,int[] array)
+        public double[] calcGuss(int d,int n,int[] array)
         {
-            double mean = chart1.DataManipulator.Statistics.Mean("prob=0.25");
             double calcMean = 0.0;
             double calcVar = 0.0;
-            for (int i = 1; i <= d; i++)
+            double squareMean = 0.0;
+            for (int i = 0; i <= d; i++)
             {
-                calcMean += (double)i * (double)((double)array[i] / (double)d);
+                calcMean += i * (array[i] / (double)n);
             }
-            for (int i = 1; i <= d; i++)
+            for (int i = 0; i <= d; i++)
             {
-                calcVar += Math.Pow(i - calcMean, 2);
+                squareMean += Math.Pow(i,2) * (array[i] / (double)n);
             }
-            double variance = chart1.DataManipulator.Statistics.Variance("prob=0.25", false);
+            calcVar = squareMean - Math.Pow(calcMean, 2);
             double[] result = new double[d + 1];
-            for (int i = 1; i <= 100; i++)
+            for (int i = 0; i <= d; i++)
             {
-                result[i] = (1 / (Math.Sqrt(2 * Math.PI) * Math.Sqrt(variance))) * 
-                    Math.Exp((Math.Pow(i - mean, 2) / (2 * variance)) * (-1));
+                result[i] = (1 / (Math.Sqrt(2 * Math.PI) * Math.Sqrt(calcVar))) * 
+                    Math.Exp((Math.Pow(i - calcMean, 2) / (2 * calcVar)) * (-1));
             }
-            int z = 0;
+            return result;
         }
 
         public void test(int d,int n,double[] prob,int[] result,int[] result2)
@@ -103,16 +109,17 @@ namespace patterns_recognition
             }
         }
 
-        public void draw(int[] _y, double prob, int _length, int time , Color _color)
+        public void draw(int[] _y, string prob, int _length, int time , Color _color)
         {
-            chart1.Titles.Add("d=" + _length + ",n=" + time);
+            if (chart1.Series.Count == 0)
+                chart1.Titles.Add("d=" + _length + ",n=" + time);
             Series _series = new Series();
-            for (int index = 1; index <= _length; index++)
+            for (int index = 0; index <= _length; index++)
             {
                 _series.Color = _color;
                 _series.ChartType = SeriesChartType.Column;
                 _series.IsValueShownAsLabel = true;
-                 _series.Name ="prob=" + prob;
+                 _series.Name = prob;
                 if (_y[index] != 0)
                 {
                     _series.Points.AddXY(index, _y[index]);
@@ -121,18 +128,19 @@ namespace patterns_recognition
             chart1.Series.Add(_series);
         }
 
-        public void drawGuss(double[] _y, String name, int _length, int time, Color _color)
+        public void drawGuss(double[] _y, string name, int _length, int time, Color _color)
         {
             Series _series = new Series();
-            for (int index = 1; index <= _length; index++)
+            for (int index = 0; index <= _length; index++)
             {
                 _series.Color = _color;
-                _series.ChartType = SeriesChartType.Line;
+                _series.ChartType = SeriesChartType.Spline;
                 //_series.IsValueShownAsLabel = true;
                 _series.Name = name;
-                if (_y[index] != 0)
+                _series.BorderWidth = 5;
+                if (_y[index] * time > 0.5)
                 {
-                    _series.Points.AddXY(index, _y[index]*10);
+                    _series.Points.AddXY(index, _y[index] * time);
                 }
             }
             chart1.Series.Add(_series);
@@ -141,7 +149,7 @@ namespace patterns_recognition
         public double bernoulli(int d, int[] time, double prob)
         {
             double bernoRes = 0.0;
-            for (int i = 1; i <= d; i++)
+            for (int i = 0; i <= d; i++)
             {
                 bernoRes += Math.Pow(prob, time[i]) * Math.Pow(1 - prob, d - time[i]);
             }
@@ -167,10 +175,10 @@ namespace patterns_recognition
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            textBox1.Text = "100";
-            textBox2.Text = "100";
-            textBox3.Text = "0.25";
-            textBox4.Text = "0.5";
+            textBox1.Text = "100";//n
+            textBox2.Text = "10";//d
+            textBox3.Text = "0.25";//p1
+            textBox4.Text = "0.5";//p2
         }
 
     }
