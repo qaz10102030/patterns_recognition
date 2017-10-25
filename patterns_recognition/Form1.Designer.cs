@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,6 +45,11 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,20 +65,20 @@
             // 
             // chart1
             // 
-            chartArea2.AxisX.Interval = 1D;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisY.Interval = 10D;
-            chartArea2.AxisY2.Interval = 0.5D;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea8.AxisX.Interval = 1D;
+            chartArea8.AxisX.MajorGrid.Enabled = false;
+            chartArea8.AxisY.Interval = 10D;
+            chartArea8.AxisY2.Interval = 0.5D;
+            chartArea8.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.chart1.Legends.Add(legend8);
             this.chart1.Location = new System.Drawing.Point(13, 100);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            this.chart1.Series.Add(series8);
             this.chart1.Size = new System.Drawing.Size(909, 300);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
@@ -99,7 +104,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(274, 19);
+            this.label3.Location = new System.Drawing.Point(276, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 12);
             this.label3.TabIndex = 6;
@@ -145,44 +150,90 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(425, 18);
+            this.label5.Location = new System.Drawing.Point(610, 15);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(33, 12);
+            this.label5.Size = new System.Drawing.Size(64, 12);
             this.label5.TabIndex = 12;
-            this.label5.Text = "label5";
+            this.label5.Text = "bernoP1H = ";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(425, 30);
+            this.label6.Location = new System.Drawing.Point(610, 43);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 12);
+            this.label6.Size = new System.Drawing.Size(64, 12);
             this.label6.TabIndex = 13;
-            this.label6.Text = "label6";
+            this.label6.Text = "bernoP2H = ";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(425, 46);
+            this.label7.Location = new System.Drawing.Point(610, 27);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(33, 12);
+            this.label7.Size = new System.Drawing.Size(76, 12);
             this.label7.TabIndex = 14;
-            this.label7.Text = "label7";
+            this.label7.Text = "gaussianP1H = ";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(425, 58);
+            this.label8.Location = new System.Drawing.Point(610, 55);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(33, 12);
+            this.label8.Size = new System.Drawing.Size(76, 12);
             this.label8.TabIndex = 15;
-            this.label8.Text = "label8";
+            this.label8.Text = "gaussianP2H = ";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(610, 76);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(113, 12);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "bernoulli :  , gaussian : ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(426, 18);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(58, 12);
+            this.label10.TabIndex = 17;
+            this.label10.Text = "bernoP1H=";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(426, 46);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(58, 12);
+            this.label11.TabIndex = 18;
+            this.label11.Text = "bernoP2H=";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(491, 15);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 22);
+            this.textBox5.TabIndex = 19;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(491, 43);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(100, 22);
+            this.textBox6.TabIndex = 20;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(934, 412);
+            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -222,6 +273,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox6;
     }
 }
 

@@ -31,7 +31,9 @@ namespace patterns_recognition
             if (textBox1.Text != "" && IsNumeric(textBox1.Text) && 
                 textBox2.Text != "" && IsNumeric(textBox2.Text) && 
                 textBox3.Text != "" && IsNumeric(textBox3.Text) && 
-                textBox4.Text != "" && IsNumeric(textBox4.Text))
+                textBox4.Text != "" && IsNumeric(textBox4.Text) &&
+                textBox5.Text != "" && IsNumeric(textBox5.Text) &&
+                textBox6.Text != "" && IsNumeric(textBox6.Text))
             {
                 n = short.Parse(textBox1.Text);
                 d = short.Parse(textBox2.Text);
@@ -45,22 +47,24 @@ namespace patterns_recognition
                 test(d , n, prob,result,result2);
                 draw(result, "prob1=" + prob[0], d, n, _colors[0]);
                 draw(result2, "prob2=" + prob[1], d, n, _colors[1]);
-                double berno1 = bernoulli(d, result, prob[0]);
-                double berno2 = bernoulli(d, result2, prob[1]);
+                label5.Text = "bernoP1H = " + bernoulli(d,int.Parse(textBox5.Text) , prob[0]) + "";
+                label6.Text = "bernoP2H = " + bernoulli(d, int.Parse(textBox6.Text), prob[1]) + "";
 
-                label5.Text = "berno1 = " + berno1;
-                label6.Text = "berno2 = " + berno2;
+                normal = calcGauss(d, n, result);
+                drawGauss(normal, "高斯1", d, n, Color.ForestGreen);
+                normal2 = calcGauss(d, n, result2);
+                drawGauss(normal2, "高斯2", d, n, Color.Yellow);
+                label7.Text = "gaussianP1H = " + normal[int.Parse(textBox5.Text)];
+                label8.Text = "gaussianP2H = " + normal2[int.Parse(textBox6.Text)];
 
-                normal = calcGuss(d, n, result);
-                drawGuss(normal, "高斯", d, n, Color.ForestGreen);
-                normal2 = calcGuss(d, n, result2);
-                drawGuss(normal2, "高斯2", d, n, Color.Yellow);
-                label7.Text = "gaussian1 = " + normal.Sum();
-                label8.Text = "gaussian2 = " + normal2.Sum();
+                label9.Text = "bernoulli : " +
+                    (bernoulli(d, int.Parse(textBox5.Text), prob[0]) > bernoulli(d, int.Parse(textBox6.Text), prob[1]) ? "P1H > P2H" : bernoulli(d, int.Parse(textBox5.Text), prob[0]) < bernoulli(d, int.Parse(textBox6.Text), prob[1]) ? "P1H < P2H" : "P1H = P2H") + " , " +
+                    "gaussian : " + 
+                    (normal[int.Parse(textBox5.Text)] > normal2[int.Parse(textBox6.Text)] ? "P1H > P2H" : normal[int.Parse(textBox5.Text)] < normal2[int.Parse(textBox6.Text)] ? "P1H < P2H" : "P1H = P2H");
             }
         }
 
-        public double[] calcGuss(int d,int n,int[] array)
+        public double[] calcGauss(int d,int n,int[] array)
         {
             double calcMean = 0.0;
             double calcVar = 0.0;
@@ -109,7 +113,7 @@ namespace patterns_recognition
             }
         }
 
-        public void draw(int[] _y, string prob, int _length, int time , Color _color)
+        public void draw(int[] _y, string name, int _length, int time , Color _color)
         {
             if (chart1.Series.Count == 0)
                 chart1.Titles.Add("d=" + _length + ",n=" + time);
@@ -119,7 +123,7 @@ namespace patterns_recognition
                 _series.Color = _color;
                 _series.ChartType = SeriesChartType.Column;
                 _series.IsValueShownAsLabel = true;
-                 _series.Name = prob;
+                 _series.Name = name;
                 if (_y[index] != 0)
                 {
                     _series.Points.AddXY(index, _y[index]);
@@ -128,7 +132,7 @@ namespace patterns_recognition
             chart1.Series.Add(_series);
         }
 
-        public void drawGuss(double[] _y, string name, int _length, int time, Color _color)
+        public void drawGauss(double[] _y, string name, int _length, int time, Color _color)
         {
             Series _series = new Series();
             for (int index = 0; index <= _length; index++)
@@ -146,12 +150,12 @@ namespace patterns_recognition
             chart1.Series.Add(_series);
         }
 
-        public double bernoulli(int d, int[] time, double prob)
+        public double bernoulli(int d, int time, double prob)
         {
             double bernoRes = 0.0;
             for (int i = 0; i <= d; i++)
             {
-                bernoRes += Math.Pow(prob, time[i]) * Math.Pow(1 - prob, d - time[i]);
+                bernoRes += Math.Pow(prob, time) * Math.Pow(1 - prob, d - time);
             }
                 return bernoRes;
         }
@@ -179,6 +183,8 @@ namespace patterns_recognition
             textBox2.Text = "10";//d
             textBox3.Text = "0.25";//p1
             textBox4.Text = "0.5";//p2
+            textBox5.Text = "5";//berno1
+            textBox6.Text = "5";//berno2
         }
 
     }
