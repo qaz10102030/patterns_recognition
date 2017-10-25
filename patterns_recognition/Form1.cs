@@ -52,9 +52,11 @@ namespace patterns_recognition
                 Chart c = new Chart();
                 for (int i = 1; i <= d; i++)
                 {
-                    normal[i] = c.DataManipulator.Statistics.NormalDistribution();
+                    double iter = (double)result[i] / (double)d;
+                    normal[i] = c.DataManipulator.Statistics.NormalDistribution(iter);
                 }
                 int x = 0;
+                drawGuss(normal, "高斯", d, n, Color.ForestGreen);
             }
         }
 
@@ -102,6 +104,24 @@ namespace patterns_recognition
             chart1.Series.Add(_series);
         }
 
+        public void drawGuss(double[] _y, String name, int _length, int time, Color _color)
+        {
+            chart1.Titles.Add("d=" + _length + ",n=" + time);
+            Series _series = new Series();
+            for (int index = 1; index <= _length; index++)
+            {
+                _series.Color = _color;
+                _series.ChartType = SeriesChartType.Column;
+                _series.IsValueShownAsLabel = true;
+                _series.Name = name;
+                if (_y[index] != 0)
+                {
+                    _series.Points.AddXY(index, _y[index]);
+                }
+            }
+            chart1.Series.Add(_series);
+        }
+
         public double bernoulli(int d, int[] time, double prob)
         {
             double bernoRes = 0.0;
@@ -127,6 +147,14 @@ namespace patterns_recognition
                     return false;
                 }
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            textBox1.Text = "100";
+            textBox2.Text = "100";
+            textBox3.Text = "0.25";
+            textBox4.Text = "0.5";
         }
 
     }

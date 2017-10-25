@@ -16,3 +16,12 @@ C:\Users\Rabbit\Desktop\Programming\Pattern Recognition\patterns_recognition\pat
 C:\Users\Rabbit\Desktop\Programming\Pattern Recognition\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.Form1.resources
 C:\Users\Rabbit\Desktop\Programming\Pattern Recognition\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.Properties.Resources.resources
 C:\Users\Rabbit\Desktop\Programming\Pattern Recognition\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.csproj.GenerateResource.Cache
+C:\Users\User\Desktop\git\patterns_recognition\patterns_recognition\bin\Debug\patterns_recognition.exe.config
+C:\Users\User\Desktop\git\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.exe
+C:\Users\User\Desktop\git\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.pdb
+C:\Users\User\Desktop\git\patterns_recognition\patterns_recognition\bin\Debug\patterns_recognition.exe
+C:\Users\User\Desktop\git\patterns_recognition\patterns_recognition\bin\Debug\patterns_recognition.pdb
+C:\Users\User\Desktop\git\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\git\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.Form1.resources
+C:\Users\User\Desktop\git\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.Properties.Resources.resources
+C:\Users\User\Desktop\git\patterns_recognition\patterns_recognition\obj\Debug\patterns_recognition.csproj.GenerateResource.Cache
