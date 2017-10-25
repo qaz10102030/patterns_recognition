@@ -49,15 +49,32 @@ namespace patterns_recognition
                 label5.Text = "berno1 = " + berno1;
                 label6.Text = "berno2 = " + berno2;
 
-                Chart c = new Chart();
-                for (int i = 1; i <= d; i++)
-                {
-                    double iter = (double)result[i] / (double)d;
-                    normal[i] = c.DataManipulator.Statistics.NormalDistribution(iter);
-                }
-                int x = 0;
-                drawGuss(normal, "高斯", d, n, Color.ForestGreen);
+                calcGuss(d,result);
+                //drawGuss(normal, "高斯", d, n, Color.ForestGreen);
             }
+        }
+
+        public void calcGuss(int d,int[] array)
+        {
+            double mean = chart1.DataManipulator.Statistics.Mean("prob=0.25");
+            double calcMean = 0.0;
+            double calcVar = 0.0;
+            for (int i = 1; i <= d; i++)
+            {
+                calcMean += (double)i * (double)((double)array[i] / (double)d);
+            }
+            for (int i = 1; i <= d; i++)
+            {
+                calcVar += Math.Pow(i - calcMean, 2);
+            }
+            double variance = chart1.DataManipulator.Statistics.Variance("prob=0.25", false);
+            double[] result = new double[d + 1];
+            for (int i = 1; i <= 100; i++)
+            {
+                result[i] = (1 / (Math.Sqrt(2 * Math.PI) * Math.Sqrt(variance))) * 
+                    Math.Exp((Math.Pow(i - mean, 2) / (2 * variance)) * (-1));
+            }
+            int z = 0;
         }
 
         public void test(int d,int n,double[] prob,int[] result,int[] result2)
@@ -106,17 +123,16 @@ namespace patterns_recognition
 
         public void drawGuss(double[] _y, String name, int _length, int time, Color _color)
         {
-            chart1.Titles.Add("d=" + _length + ",n=" + time);
             Series _series = new Series();
             for (int index = 1; index <= _length; index++)
             {
                 _series.Color = _color;
-                _series.ChartType = SeriesChartType.Column;
-                _series.IsValueShownAsLabel = true;
+                _series.ChartType = SeriesChartType.Line;
+                //_series.IsValueShownAsLabel = true;
                 _series.Name = name;
                 if (_y[index] != 0)
                 {
-                    _series.Points.AddXY(index, _y[index]);
+                    _series.Points.AddXY(index, _y[index]*10);
                 }
             }
             chart1.Series.Add(_series);
