@@ -14,13 +14,8 @@ namespace patterns_recognition
     public partial class Form1 : Form
     {
         public Random rnd = new Random(Guid.NewGuid().GetHashCode());
-        public int[] count = new int[] { 0, 0, 0, 0 };
-        private readonly Color[] _colors = new Color[] { Color.Peru, Color.PowderBlue };
-        public int[] result = new int[1001];
-        public int[] result2 = new int[1001];
-        public double[] bernoArray = new double[1001];
-        public double[] bernoArray2 = new double[1001];
-
+        public int[] count = new int[] { 0, 0 };
+        private readonly Color[] _colors = new Color[] { Color.DodgerBlue, Color.Red };
 
         public Form1()
         {
@@ -29,20 +24,41 @@ namespace patterns_recognition
 
         private void button1_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < result.Length; i++)
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
+            double[] prob = new double[2];
+            int n = 0, d = 0;
+            if (textBox1.Text != "" && IsNumeric(textBox1.Text) && 
+                textBox2.Text != "" && IsNumeric(textBox2.Text) && 
+                textBox3.Text != "" && IsNumeric(textBox3.Text) && 
+                textBox4.Text != "" && IsNumeric(textBox4.Text))
             {
-                result[i] = 0;
-                result2[i] = 0;
-                bernoArray[i] = 0;
-                bernoArray2[i] = 0;
+                n = short.Parse(textBox1.Text);
+                d = short.Parse(textBox2.Text);
+                prob[0] = double.Parse(textBox3.Text);
+                prob[1] = double.Parse(textBox4.Text);
+                int[] result = new int[d + 1];
+                int[] result2 = new int[d + 1];
+                double[] normal = new double[d + 1];
+
+                test(d , n, prob,result,result2);
+                draw(result, prob[0], d, n, _colors[0]);
+                //draw(result2, prob[1], d, n, _colors[1]);
+                double berno1 = bernoulli(d, result, prob[0]);
+                double berno2 = bernoulli(d, result2, prob[1]);
+                label5.Text = "berno1 = " + berno1;
+                label6.Text = "berno2 = " + berno2;
+
+                Chart c = new Chart();
+                for (int i = 1; i <= d; i++)
+                {
+                    normal[i] = c.DataManipulator.Statistics.NormalDistribution();
+                }
+                int x = 0;
             }
-            double[] prob = new double[] { 0.25, 0.5 };
-            int n = Int16.Parse(textBox1.Text), d = Int16.Parse(textBox2.Text) ;
-            test(d, n, prob);
-            draw(result, result2, prob, d, n,bernoArray,bernoArray2);
         }
 
-        public void test(int d,int n,double[] prob)
+        public void test(int d,int n,double[] prob,int[] result,int[] result2)
         {
             count[0] = 0;
             count[1] = 0;
@@ -56,10 +72,6 @@ namespace patterns_recognition
                 result[count[0]]++;
                 count[0] = 0;
             }
-            for (int j = 1; j <= d; j++)
-            {
-                bernoArray[j] = bernoulli(d, result[j], prob[0]);
-            }
             for (int i = 1; i <= n; i++)
             {
                 for (int j = 1; j <= d; j++)
@@ -70,51 +82,51 @@ namespace patterns_recognition
                 result2[count[1]]++;
                 count[1] = 0;
             }
-            for (int j = 1; j <= d; j++)
-            {
-                bernoArray2[j] = bernoulli(d, result2[j], prob[1]);
-            }
         }
 
-        public void draw(int[] _y, int[] _y2, double[] prob, int _length, int time, double[] _bernoArray, double[] _bernoArray2)
+        public void draw(int[] _y, double prob, int _length, int time , Color _color)
         {
-            chart1.Series.Clear();
-            chart1.Titles.Clear();
             chart1.Titles.Add("d=" + _length + ",n=" + time);
             Series _series = new Series();
             for (int index = 1; index <= _length; index++)
             {
-                _series.Color = Color.DodgerBlue;
+                _series.Color = _color;
                 _series.ChartType = SeriesChartType.Column;
                 _series.IsValueShownAsLabel = true;
-                 _series.Name ="prob=" + prob[0];
+                 _series.Name ="prob=" + prob;
                 if (_y[index] != 0)
                 {
                     _series.Points.AddXY(index, _y[index]);
                 }
             }
             chart1.Series.Add(_series);
-
-            _series = new Series();
-            for (int index = 1; index <= _length; index++)
-            {
-                _series.ChartType = SeriesChartType.Column;
-                _series.Color = Color.Red;
-                _series.IsValueShownAsLabel = true;
-                _series.Name ="prob=" + prob[1];
-                if (_y2[index] != 0)
-                {
-                    _series.Points.AddXY(index, _y2[index]);
-                }
-            }
-            chart1.Series.Add(_series);
         }
 
-        public double bernoulli(int d, int time, double prob)
+        public double bernoulli(int d, int[] time, double prob)
         {
             double bernoRes = 0.0;
-            bernoRes = Math.Pow(prob, time) * Math.Pow(1 - prob, d - time);
+            for (int i = 1; i <= d; i++)
+            {
+                bernoRes += Math.Pow(prob, time[i]) * Math.Pow(1 - prob, d - time[i]);
+            }
                 return bernoRes;
+        }
+
+        public static bool IsNumeric(string TextBoxValue)
+       {
+            try{
+                int i = Convert.ToInt32(TextBoxValue);
+                return true;
+            }
+            catch{
+                try {
+                    double i = Convert.ToDouble(TextBoxValue);
+                    return true;
+                }
+                catch {
+                    return false;
+                }
+            }
         }
 
     }
